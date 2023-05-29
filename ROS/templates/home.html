@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/templates/styles/home.css">
+    <title>ROS: Passwords checker</title>
+</head>
+
+<body>
+    <div class="input_div">
+        <form method="POST" action="/" id="form">
+            <div>
+                <div>
+                    <label>Name </label><input name="name" type="text" value="" /><br><br>
+                    <label>Surname </label><input name="surname" type="text" value="" /><br><br>
+                    <!-- <label>Email </label><input name="email" type="text" value="" /><br><br> -->
+                    <!-- <label>Login </label><input name="login" type="text" value="" /><br><br> -->
+                    <label>Year of birth </label><input name="year" type="number" value="" /><br><br>
+                    <label>Password </label><input name="password" type="text" value="" /><br><br>
+                </div><br>
+
+                <div class="choose">
+                    <div class="choose_div">
+                        <label for="passwordlist">Choose a method:</label>
+                        <select id="passwordlist" name="passwordlist">
+                            <option value="no relation">No relation</option>
+                            <option value="relation">Relation</option>
+                        </select>
+
+                    </div>
+                    <div class="choose_div">
+                        <input type="submit" value="submit" />
+                    </div>
+                </div>
+
+            </div>
+        </form>
+        <br>
+
+
+    </div>
+    <div>
+        {{.}}
+    </div>
+</body>
+
+</html>

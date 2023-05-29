@@ -1,0 +1,27 @@
+label{
+    display: inline-block;
+    float: left;
+    clear: left;
+    width: 250px;
+    text-align: right;
+}
+
+input {
+  display: inline-block;
+  float: left;
+  margin-left: 10px;
+}
+
+.input_div{
+    position: relative;
+}
+
+.choose{
+    display: inline-block;
+}
+
+.choose_div{
+    display: inline-block;
+    position: relative;
+}
+
