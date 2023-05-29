@@ -5,46 +5,106 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/templates/styles/home.css">
-    <title>ROS: Passwords checker</title>
+    <link rel="stylesheet" href="templates/styles/home.css">
+
 </head>
 
 <body>
-    <div class="input_div">
-        <form method="POST" action="/" id="form">
-            <div>
-                <div>
-                    <label>Name </label><input name="name" type="text" value="" /><br><br>
-                    <label>Surname </label><input name="surname" type="text" value="" /><br><br>
-                    <!-- <label>Email </label><input name="email" type="text" value="" /><br><br> -->
-                    <!-- <label>Login </label><input name="login" type="text" value="" /><br><br> -->
-                    <label>Year of birth </label><input name="year" type="number" value="" /><br><br>
-                    <label>Password </label><input name="password" type="text" value="" /><br><br>
-                </div><br>
+    <canvas id="canvas" style="background: #111;"></canvas>
+    <div class="center">
+        <div class="signup-form">
+            <div class="form-header">
+                <h1>ROS: Passwords Checker</h1>
+            </div>
+            <form method="POST" name="formform">
+                <div class="form-body">
+                    <div class="horizontal-group">
+                        <div class="form-group left">
+                            <label for="name" class="label-title">First name:</label>
+                            <input name="name" id="firstname" type="text" class="form-input" value=""
+                                placeholder="Enter your first name" >
+                        </div>
 
-                <div class="choose">
-                    <div class="choose_div">
-                        <label for="passwordlist">Choose a method:</label>
-                        <select id="passwordlist" name="passwordlist">
-                            <option value="no relation">No relation</option>
-                            <option value="relation">Relation</option>
-                        </select>
-
+                        <div class="form-group right">
+                            <label for="lastname" class="label-title">Last name:</label>
+                            <input name="surname" id="lastname" type="text" class="form-input"
+                                placeholder="Enter your last name">
+                        </div>
                     </div>
-                    <div class="choose_div">
-                        <input type="submit" value="submit" />
+
+                    <div class="form-group">
+                        <label for="experience" class="label-title">Year of Birth:</label>
+                        <input id="year" name="year" class="form-input" type="number"
+                            placeholder="Enter your Year of Birth" value="" >
+                    </div>
+
+                    <div class="form-group">
+                        <label for="password" class="label-title">Password:</label>
+                        <input name="password" type="text" id="password" class="form-input"
+                            placeholder="Enter your password" required="required">
+                    </div>
+
+                    <div class="horizontal-group">
+                        <div class="form-group left">
+                            <label for="passwordlist" class="label-title">Choose a Method:</label>
+                            <select name="passwordlist" class="form-input" id="level">
+                                <option value="no relation">No Relation</option>
+                                <option value="relation">Relation</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="horizontal-group center">
+                        <label for="choose-file" class="label-title">About Password</label>
+                        <textarea class="form-input" style="min-height: 100px;" disabled>{{.}}</textarea>
                     </div>
                 </div>
 
+            <div class="form-footer">
+                <button type="submit" class="btn" formaction="formform">Submit</button>
             </div>
         </form>
-        <br>
 
+        </div>
 
     </div>
-    <div>
-        {{.}}
-    </div>
+    <script>
+        var canvas = document.getElementById('canvas');
+        var context = canvas.getContext('2d');
+        var W = window.innerWidth;
+        var H = window.innerHeight;
+
+        canvas.width = W;
+        canvas.height = H;
+
+        var fontSize = 16;
+        var columns = Math.floor(W / fontSize);
+        var drops = [];
+        for (var i = 0; i < columns; i++) {
+            drops.push(0);
+        }
+        var str = "JavaScript Hacking Effect";
+        function draw() {
+            context.fillStyle = "rgba(0,0,0,0.05)";
+            context.fillRect(0, 0, W, H);
+            context.fontSize = "700 " + fontSize + "px";
+            context.fillStyle = "#00cc33";
+            for (var i = 0; i < columns; i++) {
+                var index = Math.floor(Math.random() * str.length);
+                var x = i * fontSize;
+                var y = drops[i] * fontSize;
+                context.fillText(str[index], x, y);
+                if (y >= canvas.height && Math.random() > 0.99) {
+                    drops[i] = 0;
+                }
+                drops[i]++;
+            }
+        }
+        draw();
+        setInterval(draw, 35);
+    </script>
+
+
 </body>
 
 </html>
