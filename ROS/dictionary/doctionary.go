@@ -24,6 +24,8 @@ func RatePassword(password string) int {
 	letterCaseRating := 0
 	if upperCount > 0 && lowerCount > 0 {
 		letterCaseRating = 20
+	} else if upperCount > 0 || lowerCount > 0 {
+		letterCaseRating = 10
 	}
 	rating += letterCaseRating
 
@@ -32,6 +34,8 @@ func RatePassword(password string) int {
 	digitRating := 0
 	if digitCount > 0 && digitCount < len(password) {
 		digitRating = 20
+	} else if digitCount > 0 {
+		digitRating = 10
 	}
 	rating += digitRating
 
@@ -45,7 +49,7 @@ func RatePassword(password string) int {
 
 	// Bonus rating for additional criteria
 	bonusRating := 0
-	if (lowerCount+upperCount) > 0 && digitCount > 0 && symbolCount > 0 {
+	if lowerCount > 0 && upperCount > 0 && digitCount > 0 && symbolCount > 0 {
 		bonusRating = 20
 	}
 	rating += bonusRating

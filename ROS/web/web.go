@@ -40,25 +40,38 @@ func Home(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 
+		bool_rockyou, err := dictionary.RockYou(tosend.Password)
+
+		var err_rockyou string
+		var found_in_rockyou string
+
+		if err != nil {
+			err_rockyou = "Can not open rockyou file"
+		}
+
+		if bool_rockyou {
+			found_in_rockyou = "The password is found in rockyou dictionary."
+		}
+
 		if tosend.Relation == "no relation" {
 			strength := dictionary.RatePassword(tosend.Password)
 			if strength <= 50 {
-				tmpl_exec(w, r, fmt.Sprintf("Level of strength is : %d,\npassword is very weak", strength))
+				tmpl_exec(w, r, fmt.Sprintf("Level of strength is : %d,\npassword is very weak. %s%s", strength, found_in_rockyou, err_rockyou))
 				return
 			} else if strength < 65 {
-				tmpl_exec(w, r, fmt.Sprintf("Level of strength is : %d,\npassword is weak", strength))
+				tmpl_exec(w, r, fmt.Sprintf("Level of strength is : %d,\npassword is weak. %s%s", strength, found_in_rockyou, err_rockyou))
 				return
 			} else if strength < 75 {
-				tmpl_exec(w, r, fmt.Sprintf("Level of strength is : %d,\npassword is ok", strength))
+				tmpl_exec(w, r, fmt.Sprintf("Level of strength is : %d,\npassword is not weak but not realy reliable. %s%s", strength, found_in_rockyou, err_rockyou))
 				return
 			} else if strength < 85 {
-				tmpl_exec(w, r, fmt.Sprintf("Level of strength is : %d,\npassword is good", strength))
+				tmpl_exec(w, r, fmt.Sprintf("Level of strength is : %d,\npassword is good. %s%s", strength, found_in_rockyou, err_rockyou))
 				return
 			} else if strength <= 100 {
-				tmpl_exec(w, r, fmt.Sprintf("Level of strength is : %d,\npassword is very Good", strength))
+				tmpl_exec(w, r, fmt.Sprintf("Level of strength is : %d,\npassword is very Good. %s%s", strength, found_in_rockyou, err_rockyou))
 				return
 			} else {
-				tmpl_exec(w, r, fmt.Sprintf("Level of strength is : %d,\npassword is IMPOSSIBLY STRONG", strength))
+				tmpl_exec(w, r, fmt.Sprintf("Level of strength is : %d,\npassword is IMPOSSIBLY STRONG. %s%s", strength, found_in_rockyou, err_rockyou))
 				return
 			}
 		} else if tosend.Relation == "relation" {
